@@ -12,6 +12,8 @@ const currentlyLearning = [
 ];
 
 export function AboutSection() {
+  const profileImageUrl = "https://raw.githubusercontent.com/viniciusperico/perico/main/public/profile-photo.png";
+
   return (
     <SectionWrapper id="sobre" className="bg-card">
       <PageSectionTitle
@@ -20,7 +22,7 @@ export function AboutSection() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-square rounded-lg overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 group">
           <Image
-            src="/profile-photo.png"
+            src={profileImageUrl}
             alt="Foto de Vinicius Perico"
             fill
             className="object-cover rounded-lg group-hover:opacity-90 transition-opacity"
