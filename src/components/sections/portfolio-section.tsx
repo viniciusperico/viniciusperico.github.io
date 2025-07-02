@@ -4,7 +4,7 @@ import { SectionWrapper } from '@/components/section-wrapper';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Github, Terminal } from 'lucide-react';
+import { Github, Terminal, ExternalLink } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface GitHubRepo {
@@ -25,7 +25,7 @@ interface FetchProjectsResult {
 // Fetches specific repositories from GitHub for a given user.
 async function getFeaturedGithubProjects(username: string, repoNames: string[], token?: string): Promise<FetchProjectsResult> {
   if (!username || username === 'seu-usuario-padrao') {
-    const error = "O nome de usuário do GitHub não está configurado!";
+    const error = "O nome de usuário do GitHub não está configurado.";
     console.warn(error);
     return { projects: [], error };
   }
@@ -75,13 +75,14 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
   }
 }
 
+// Adicione o link do seu projeto publicado em 'live_url'. Se o link estiver vazio ou for '#', o botão não aparecerá.
 const featuredProjectsConfig = [
-    { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website" },
-    { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app" },
-    { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
-    { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator" },
-    { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app" },
-    { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub" },
+    { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website", live_url: '' },
+    { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app", live_url: '' },
+    { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface", live_url: 'https://flip-clocker.vercel.app/' },
+    { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator", live_url: 'https://gerador-qr-code-581l.vercel.app/' },
+    { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app", live_url: 'https://calculadora-js-blush.vercel.app/' },
+    { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub", live_url: 'https://link-hub-app-sand.vercel.app/' },
 ];
 
 export async function PortfolioSection() {
@@ -124,7 +125,6 @@ export async function PortfolioSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((item) => {
             const projectConfig = featuredProjectsConfig.find(p => p.name === item.name);
-            // O caminho é relativo à pasta `public`.
             const imageUrl = projectConfig?.image ? projectConfig.image : `https://placehold.co/600x400.png`;
             const imageHint = projectConfig?.['data-ai-hint'] || "software project abstract";
 
@@ -137,7 +137,7 @@ export async function PortfolioSection() {
                       alt={`Imagem do projeto ${item.name}`}
                       fill
                       data-ai-hint={imageHint}
-                      className="object-contain p-4 blur-sm transition-all duration-300 group-hover:blur-none"
+                      className="object-contain transition-all duration-500 group-hover:scale-110 blur-sm group-hover:blur-none"
                     />
                   </div>
                 </CardHeader>
@@ -147,12 +147,19 @@ export async function PortfolioSection() {
                     {item.description || 'Sem descrição disponível.'}
                   </p>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="flex-col w-full gap-2 pt-0 mt-auto">
                   <Button asChild variant="outline" className="w-full text-primary border-primary hover:bg-primary/10">
                     <Link href={item.html_url} target="_blank" rel="noopener noreferrer">
                       Ver no GitHub <Github className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
+                  {projectConfig?.live_url && projectConfig.live_url !== '#' && (
+                     <Button asChild className="w-full">
+                        <Link href={projectConfig.live_url} target="_blank" rel="noopener noreferrer">
+                           Visualizar Projeto <ExternalLink className="ml-2 h-4 w-4" />
+                        </Link>
+                     </Button>
+                  )}
                 </CardFooter>
               </Card>
             );
