@@ -25,7 +25,7 @@ interface FetchProjectsResult {
 // Fetches specific repositories from GitHub for a given user.
 async function getFeaturedGithubProjects(username: string, repoNames: string[], token?: string): Promise<FetchProjectsResult> {
   if (!username || username === 'seu-usuario-padrao') {
-    const error = "O nome de usuário do GitHub não está configurado.";
+    const error = "O nome de usuário do GitHub não está configurado!";
     console.warn(error);
     return { projects: [], error };
   }
