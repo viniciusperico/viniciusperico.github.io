@@ -82,6 +82,7 @@ const featuredProjectsConfig = [
 export async function PortfolioSection() {
   const githubUsername = 'viniciusperico';
   const githubToken = process.env.GITHUB_TOKEN;
+  const basePath = process.env.NODE_ENV === 'production' ? '/perico' : '';
   
   // Extrai os nomes dos repositórios para buscar na API do GitHub
   const featuredRepoNames = featuredProjectsConfig.map(p => p.name);
@@ -120,7 +121,7 @@ export async function PortfolioSection() {
           {projects.map((item) => {
             // Encontra a imagem customizada para o projeto atual.
             const projectConfig = featuredProjectsConfig.find(p => p.name === item.name);
-            const imageUrl = projectConfig?.image ? projectConfig.image : "https://placehold.co/600x400.png";
+            const imageUrl = projectConfig?.image ? `${basePath}${projectConfig.image}` : `https://placehold.co/600x400.png`;
             const imageHint = projectConfig?.['data-ai-hint'] || "software project abstract";
 
             return (

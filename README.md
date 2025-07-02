@@ -2,26 +2,6 @@
 
 Este é um portfólio pessoal construído com Next.js, React, Tailwind CSS e ShadCN UI, desenvolvido no Firebase Studio.
 
-## Como Rodar Localmente
-
-1.  **Clone o repositório do GitHub:**
-    ```bash
-    git clone https://github.com/viniciusperico/perico.git
-    ```
-2.  **Acesse o diretório:**
-    ```bash
-    cd perico
-    ```
-3.  **Instale as dependências:**
-    ```bash
-    npm install
-    ```
-4.  **Inicie o servidor de desenvolvimento:**
-    ```bash
-    npm run dev
-    ```
-    Abra [http://localhost:9002](http://localhost:9002) no seu navegador para ver o site.
-
 ## Como Publicar no GitHub Pages com GitHub Actions
 
 Este projeto está configurado para ser publicado automaticamente no GitHub Pages sempre que você enviar alterações para a branch `main`.
@@ -51,3 +31,16 @@ Após o primeiro `push`, uma nova automação (Action) será iniciada. Para que 
 Após alguns minutos, seu site estará disponível na URL do GitHub Pages: `https://viniciusperico.github.io/perico`.
 
 A partir de agora, toda vez que você fizer um `git push origin main`, o site será atualizado automaticamente!
+
+### Nota Importante Sobre Imagens
+
+Se as imagens não estiverem aparecendo no seu site publicado, o motivo mais comum é que os arquivos de imagem (e.g., `.png`, `.jpg`) não foram adicionados ao seu repositório no GitHub.
+
+**Como corrigir:**
+
+1.  Na raiz do seu projeto (fora da pasta `src`), crie uma pasta chamada `public`.
+2.  Dentro da pasta `public`, coloque sua foto de perfil (`profile-photo.png`).
+3.  Ainda dentro de `public`, crie outra pasta chamada `projects` e mova todas as imagens dos seus projetos para dentro dela.
+4.  Envie essas novas pastas e arquivos para o GitHub com os comandos `git add .`, `git commit`, e `git push`.
+
+O GitHub Actions só consegue usar os arquivos que estão no repositório.

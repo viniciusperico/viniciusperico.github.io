@@ -12,7 +12,8 @@ const currentlyLearning = [
 ];
 
 export function AboutSection() {
-  const profileImageUrl = "/profile-photo.png";
+  const basePath = process.env.NODE_ENV === 'production' ? '/perico' : '';
+  const profileImageUrl = `${basePath}/profile-photo.png`;
 
   return (
     <SectionWrapper id="sobre" className="bg-card">
