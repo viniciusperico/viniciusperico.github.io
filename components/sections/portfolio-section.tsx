@@ -22,7 +22,6 @@ interface FetchProjectsResult {
   error: string | null;
 }
 
-// Fetches specific repositories from GitHub for a given user.
 async function getFeaturedGithubProjects(username: string, repoNames: string[], token?: string): Promise<FetchProjectsResult> {
   if (!username || username === 'seu-usuario-padrao') {
     const error = "O nome de usuário do GitHub não está configurado.";
@@ -33,9 +32,7 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
     return { projects: [], error: null };
   }
 
-  const headers: HeadersInit = {
-    'Accept': 'application/vnd.github.v3+json',
-  };
+  const headers: HeadersInit = { Accept: 'application/vnd.github.v3+json' };
   if (token && token !== 'COLE_SEU_TOKEN_AQUI') {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -51,12 +48,12 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
         if (response.status === 403) {
           apiError = 'Você atingiu o limite de requisições da API do GitHub. Por favor, configure uma variável de ambiente GITHUB_TOKEN para aumentar o limite e visualizar seus projetos.';
         } else if (response.status === 404) {
-            apiError = `Repositório "${repoName}" não encontrado. Verifique se o nome está correto e se o repositório é público.`;
+          apiError = `Repositório "${repoName}" não encontrado. Verifique se o nome está correto e se o repositório é público.`;
         } else {
-            apiError = errorMessage;
+          apiError = errorMessage;
         }
         console.error(apiError);
-        break; // Stop fetching if an error occurs
+        break;
       }
       const data = await response.json();
       projects.push(data as GitHubRepo);
@@ -71,22 +68,20 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
 }
 
 const featuredProjectsConfig = [
-    { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website" },
-    { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app" },
-    { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
-    { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator" },
-    { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app" },
-    { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub" },
+  { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website" },
+  { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app" },
+  { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
+  { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator" },
+  { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app" },
+  { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub" },
 ];
 
 export async function PortfolioSection() {
   const githubUsername = 'viniciusperico';
   const githubToken = process.env.GITHUB_TOKEN;
   const basePath = process.env.NODE_ENV === 'production' ? '/perico' : '';
-  
-  // Extrai os nomes dos repositórios para buscar na API do GitHub
-  const featuredRepoNames = featuredProjectsConfig.map(p => p.name);
 
+  const featuredRepoNames = featuredProjectsConfig.map(p => p.name);
   const { projects, error } = await getFeaturedGithubProjects(githubUsername, featuredRepoNames, githubToken);
 
   const showNoProjectsListed = featuredRepoNames.length === 0 && !error;
@@ -95,17 +90,13 @@ export async function PortfolioSection() {
 
   return (
     <SectionWrapper id="projetos">
-      <PageSectionTitle
-        title="Meus Projetos no GitHub"
-      />
+      <PageSectionTitle title="Meus Projetos no GitHub" />
 
       {showLoadingError && (
         <Alert variant="destructive" className="mb-8">
           <Terminal className="h-4 w-4" />
           <AlertTitle>Erro ao Carregar Projetos</AlertTitle>
-          <AlertDescription>
-            {error}
-          </AlertDescription>
+          <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
 
@@ -115,11 +106,10 @@ export async function PortfolioSection() {
           <p>Abra o arquivo <code>src/components/sections/portfolio-section.tsx</code> e adicione seus projetos na lista <code>featuredProjectsConfig</code>.</p>
         </div>
       )}
-      
+
       {projects.length > 0 && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((item) => {
-            // Encontra a imagem customizada para o projeto atual.
             const projectConfig = featuredProjectsConfig.find(p => p.name === item.name);
             const imageUrl = projectConfig?.image ? `${basePath}${projectConfig.image}` : `https://placehold.co/600x400.png`;
             const imageHint = projectConfig?.['data-ai-hint'] || "software project abstract";
@@ -132,6 +122,7 @@ export async function PortfolioSection() {
                       src={imageUrl}
                       alt={`Imagem do projeto ${item.name}`}
                       fill
+                      unoptimized // ✅ ESSENCIAL para GitHub Pages
                       data-ai-hint={imageHint}
                       className="object-contain blur-sm group-hover:blur-none transition-all duration-300 p-2"
                     />
@@ -157,7 +148,7 @@ export async function PortfolioSection() {
       )}
 
       {showNoProjectsLoaded && (
-         <div className="text-center text-foreground/70 bg-card/50 p-6 rounded-lg shadow">
+        <div className="text-center text-foreground/70 bg-card/50 p-6 rounded-lg shadow">
           <p>Nenhum projeto foi carregado.</p>
           <p>Verifique se os nomes dos repositórios em <code>featuredProjectsConfig</code> estão corretos, se eles são públicos e se a variável GITHUB_TOKEN está configurada corretamente.</p>
         </div>
