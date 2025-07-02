@@ -9,7 +9,6 @@ interface SectionWrapperProps {
   className?: string;
   id?: string;
   as?: React.ElementType;
-  delay?: string; // e.g., 'delay-200'
 }
 
 export const SectionWrapper: React.FC<SectionWrapperProps> = ({ 
@@ -17,7 +16,6 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
   className, 
   id, 
   as: Component = 'section',
-  delay = ''
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -52,7 +50,6 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
       id={id}
       className={cn(
         'section-animate py-16 md:py-24 px-4 sm:px-6 lg:px-8',
-        delay,
         className
       )}
     >

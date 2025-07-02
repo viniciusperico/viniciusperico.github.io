@@ -40,34 +40,39 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const projects: GitHubRepo[] = [];
-  let apiError: string | null = null;
-
-  for (const repoName of repoNames) {
-    try {
-      const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`, { headers, next: { revalidate: 3600 } }); // Revalidate cache every hour
+  try {
+    const projectPromises = repoNames.map(async (repoName) => {
+      const response = await fetch(`https://api.github.com/repos/${username}/${repoName}`, { headers, next: { revalidate: 3600 } });
       if (!response.ok) {
-        let errorMessage = `Erro ao buscar o projeto "${repoName}": ${response.status} ${response.statusText}.`;
-        if (response.status === 403) {
-          apiError = 'Você atingiu o limite de requisições da API do GitHub. Por favor, configure uma variável de ambiente GITHUB_TOKEN para aumentar o limite e visualizar seus projetos.';
-        } else if (response.status === 404) {
-            apiError = `Repositório "${repoName}" não encontrado. Verifique se o nome está correto e se o repositório é público.`;
-        } else {
-            apiError = errorMessage;
-        }
-        console.error(apiError);
-        break; // Stop fetching if an error occurs
+        // Create a custom error object to pass status info
+        const error: any = new Error(`Erro ao buscar o projeto "${repoName}": ${response.status} ${response.statusText}.`);
+        error.status = response.status;
+        error.repoName = repoName;
+        throw error;
       }
-      const data = await response.json();
-      projects.push(data as GitHubRepo);
-    } catch (error) {
-      const errorMessage = `Falha ao buscar o projeto "${repoName}": ${error instanceof Error ? error.message : String(error)}`;
-      console.error(errorMessage);
+      return response.json();
+    });
+
+    const projectsData = await Promise.all(projectPromises);
+    const projects = projectsData as GitHubRepo[];
+    return { projects, error: null };
+
+  } catch (error: any) {
+    console.error(error.message);
+    let apiError: string;
+    
+    if (error.status === 403) {
+      apiError = 'Você atingiu o limite de requisições da API do GitHub. Por favor, configure uma variável de ambiente GITHUB_TOKEN para aumentar o limite e visualizar seus projetos.';
+    } else if (error.status === 404) {
+      apiError = `Repositório "${error.repoName}" não encontrado. Verifique se o nome está correto e se o repositório é público.`;
+    } else if (error instanceof TypeError) { // This will catch network errors from fetch
       apiError = "Ocorreu um erro de rede ao tentar buscar os projetos do GitHub.";
-      break;
+    } else {
+      apiError = "Ocorreu um erro desconhecido ao buscar os projetos do GitHub. Verifique o console de build.";
     }
+    
+    return { projects: [], error: apiError };
   }
-  return { projects, error: apiError };
 }
 
 const featuredProjectsConfig = [
@@ -132,7 +137,7 @@ export async function PortfolioSection() {
                       alt={`Imagem do projeto ${item.name}`}
                       fill
                       data-ai-hint={imageHint}
-                      className="object-contain p-4 blur-sm transition-all duration-300 group-hover:scale-110 group-hover:blur-none"
+                      className="object-contain p-4 blur-sm transition-all duration-300 group-hover:blur-none"
                     />
                   </div>
                 </CardHeader>
