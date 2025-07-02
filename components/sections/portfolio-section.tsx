@@ -70,15 +70,13 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
   return { projects, error: apiError };
 }
 
-const GITHUB_REPO_IMAGE_URL = 'https://cdn.jsdelivr.net/gh/viniciusperico/perico@main/public';
-
 const featuredProjectsConfig = [
-    { name: 'SiteCafeDoUrso', image: `${GITHUB_REPO_IMAGE_URL}/projects/site-cafe-do-urso.png`, "data-ai-hint": "coffee shop website" },
-    { name: 'ReciboCIS', image: `${GITHUB_REPO_IMAGE_URL}/projects/recibo-cis.png`, "data-ai-hint": "receipt generator app" },
-    { name: 'FlipClocker', image: `${GITHUB_REPO_IMAGE_URL}/projects/flip-clocker.png`, "data-ai-hint": "flip clock interface" },
-    { name: 'GeradorQRCode', image: `${GITHUB_REPO_IMAGE_URL}/projects/gerador-qr-code.png`, "data-ai-hint": "qr code generator" },
-    { name: 'GeradorTabuadaJS', image: `${GITHUB_REPO_IMAGE_URL}/projects/tabuada.png`, "data-ai-hint": "calculator app" },
-    { name: 'LinkHub', image: `${GITHUB_REPO_IMAGE_URL}/projects/linkhub.png`, "data-ai-hint": "linkhub" },
+    { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website" },
+    { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app" },
+    { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
+    { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator" },
+    { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app" },
+    { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub" },
 ];
 
 export async function PortfolioSection() {

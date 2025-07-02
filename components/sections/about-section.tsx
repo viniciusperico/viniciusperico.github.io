@@ -11,9 +11,6 @@ const currentlyLearning = [
   'PHP',
 ];
 
-const profileImageUrl = 'https://cdn.jsdelivr.net/gh/viniciusperico/perico@main/public/profile-photo.png';
-
-
 export function AboutSection() {
   return (
     <SectionWrapper id="sobre" className="bg-card">
@@ -23,7 +20,7 @@ export function AboutSection() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-square rounded-lg overflow-hidden shadow-xl transform transition-all duration-500 hover:scale-105 group">
           <Image
-            src={profileImageUrl}
+            src="/profile-photo.png"
             alt="Foto de Vinicius Perico"
             fill
             className="object-cover rounded-lg group-hover:opacity-90 transition-opacity"
