@@ -12,7 +12,7 @@ const currentlyLearning = [
 ];
 
 export function AboutSection() {
-  const profileImageUrl = "https://raw.githubusercontent.com/viniciusperico/perico/main/public/profile-photo.png";
+  const profileImageUrl = "/profile-photo.png";
 
   return (
     <SectionWrapper id="sobre" className="bg-card">
