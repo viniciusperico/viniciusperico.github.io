@@ -4,11 +4,13 @@ Este é um portfólio pessoal construído com Next.js, React, Tailwind CSS e Sha
 
 ## Publicação Automática com GitHub Actions
 
-Este projeto está configurado para ser publicado automaticamente no GitHub Pages sempre que você enviar alterações para a branch `main`. O processo é muito simples.
+Este projeto está configurado para ser publicado no seu repositório de usuário do GitHub (`viniciusperico.github.io`), o que o tornará disponível no endereço principal: **https://viniciusperico.github.io**.
+
+A publicação é automática. Sempre que você enviar alterações para a branch `main`, o site será atualizado.
 
 ### Passo 1: Organizar Suas Imagens
 
-Para que as imagens apareçam corretamente no site publicado, elas precisam estar no seu repositório do GitHub, dentro de uma pasta específica.
+Para que as imagens apareçam corretamente no site publicado, elas precisam estar no seu repositório do GitHub, dentro da pasta `public`.
 
 1.  Na raiz do seu projeto (fora da pasta `src`), crie uma pasta chamada `public`.
 2.  Dentro da pasta `public`, coloque sua foto de perfil (`profile-photo.png`).
@@ -32,13 +34,13 @@ A estrutura final deve ser assim:
 Use os comandos Git para salvar e enviar suas alterações. Isso irá iniciar a publicação automática.
 
 ```bash
-# 1. Adiciona todos os arquivos (incluindo as novas imagens)
+# Adiciona todos os arquivos
 git add .
 
-# 2. Cria um "ponto de salvamento" com uma mensagem
-git commit -m "Minha última alteração"
+# Cria um "ponto de salvamento" com uma mensagem
+git commit -m "Atualizando o site"
 
-# 3. Envia para a branch principal do GitHub
+# Envia para a branch principal do GitHub
 git push origin main
 ```
 
@@ -46,7 +48,7 @@ git push origin main
 
 Após o primeiro `push`, você precisa dizer ao GitHub para usar o "GitHub Actions" para publicar seu site.
 
-1.  No seu repositório no GitHub, vá para **Settings > Pages**.
+1.  No seu repositório no GitHub (`viniciusperico.github.io`), vá para **Settings > Pages**.
 2.  Em "Build and deployment", na seção "Source", selecione a opção **GitHub Actions**.
 
-Após alguns minutos, seu site estará no ar! A partir de agora, toda vez que você fizer um `git push origin main`, o site será atualizado automaticamente.
+É isso! Após alguns minutos, seu site estará no ar no endereço principal.

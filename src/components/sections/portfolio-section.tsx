@@ -119,7 +119,7 @@ export async function PortfolioSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((item) => {
             const projectConfig = featuredProjectsConfig.find(p => p.name === item.name);
-            // O caminho é relativo à pasta `public`. O `basePath` cuidará do resto.
+            // O caminho é relativo à pasta `public`.
             const imageUrl = projectConfig?.image ? projectConfig.image : `https://placehold.co/600x400.png`;
             const imageHint = projectConfig?.['data-ai-hint'] || "software project abstract";
 
@@ -132,7 +132,7 @@ export async function PortfolioSection() {
                       alt={`Imagem do projeto ${item.name}`}
                       fill
                       data-ai-hint={imageHint}
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="object-contain p-4 blur-sm transition-all duration-300 group-hover:scale-110 group-hover:blur-none"
                     />
                   </div>
                 </CardHeader>

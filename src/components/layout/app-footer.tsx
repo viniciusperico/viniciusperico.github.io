@@ -27,7 +27,7 @@ export function AppFooter() {
           ))}
         </div>
         <p className="text-sm text-foreground/70">
-          &copy; {new Date().getFullYear()} Vinicius Perico.
+          &copy; {new Date().getFullYear()} Vinicius Périco.
         </p>
       </div>
     </footer>
