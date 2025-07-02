@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Vinicius Perico | Desenvolvedor Full Stack',
-  description: 'Desenvolvedor Full Stack recém-formado. Conheça meus projetos e entre em contato!',
+  title: 'Vinicius Perico',
+  description: 'Conheça meus projetos e entre em contato!',
 };
 
 export default function RootLayout({
