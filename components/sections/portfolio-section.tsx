@@ -73,7 +73,7 @@ async function getFeaturedGithubProjects(username: string, repoNames: string[], 
 const featuredProjectsConfig = [
     { name: 'SiteCafeDoUrso', image: '/projects/site-cafe-do-urso.png', "data-ai-hint": "coffee shop website" },
     { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app" },
-    { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
+    { name: 'FlipClocker', image: '/perico/projects/flip-clocker.png', "data-ai-hint": "flip clock interface" },
     { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator" },
     { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app" },
     { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub" },
