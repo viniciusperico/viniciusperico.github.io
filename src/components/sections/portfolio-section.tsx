@@ -81,7 +81,6 @@ const featuredProjectsConfig = [
     { name: 'ReciboCIS', image: '/projects/recibo-cis.png', "data-ai-hint": "receipt generator app", live_url: '' },
     { name: 'FlipClocker', image: '/projects/flip-clocker.png', "data-ai-hint": "flip clock interface", live_url: 'https://flip-clocker.vercel.app/' },
     { name: 'GeradorQRCode', image: '/projects/gerador-qr-code.png', "data-ai-hint": "qr code generator", live_url: 'https://gerador-qr-code-581l.vercel.app/' },
-    { name: 'GeradorTabuadaJS', image: '/projects/tabuada.png', "data-ai-hint": "calculator app", live_url: 'https://calculadora-js-blush.vercel.app/' },
     { name: 'LinkHub', image: '/projects/linkhub.png', "data-ai-hint": "linkhub", live_url: 'https://link-hub-app-sand.vercel.app/' },
 ];
 
